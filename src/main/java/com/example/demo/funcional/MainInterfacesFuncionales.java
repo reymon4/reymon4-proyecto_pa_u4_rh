@@ -1,5 +1,9 @@
 package com.example.demo.funcional;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +38,15 @@ public class MainInterfacesFuncionales {
 		IPersonaSupplier<Persona>supplier5 = new IPersonaSupplier2Impl();
 		LOG.info("Supplier Lambda:"+ supplier5.getNombre());
 		
+		///////////////////Java Library
+		LOG.info("1.1 Java Supplier");
+		LOG.info("1.JAVA SUPPLIER");
+
+
+		Stream<String> lista =Stream.generate(()->"Reymon2"
+			//Metodo HiOrder--> Puedo ver un dato, calculo
+		).limit(10); //Genera un stream con maximo 10 elementos
+		lista.forEach(cadena-> LOG.info(cadena));
 		
 		/////////////////////////
 		// 2. CONSUMER
@@ -58,7 +71,14 @@ public class MainInterfacesFuncionales {
 		};
 		consumer3.accept(Integer.valueOf(5), Integer.valueOf(13));
 		
-
+		LOG.info("2.1 Java Consumer");
+		List<Integer> listaNum = Arrays.asList(1,2,3,4,5,9,85,74,58,99);
+		listaNum.forEach(numero -> LOG.info("valor:"+numero));
+		
+		for(Integer val: listaNum) {
+			LOG.info("valorTraid: "+val);
+		}
+		
 	//3. Predicate
 	LOG.info("3. PREDICATE");
 	
@@ -75,9 +95,14 @@ public class MainInterfacesFuncionales {
 		}
 	};
 	LOG.info("Predicate2: "+predicate2.evaluar(Integer.valueOf(11)));
+///////////////////Java Library
+	LOG.info("3.1 Java Predicate");
+	Stream<Integer> listaFiltrada=listaNum.stream().filter(numero-> numero >=3);
+	listaFiltrada.forEach(numero -> LOG.info("Valor: "+numero));
 	
 	//4. Function
 	LOG.info("4.Function");
+	//Lambdas
 	IPersonaFunction<String, Integer> function = numero-> "Valor: "+ numero.toString();
 	LOG.info(function.aplicar(10));
 	
@@ -92,16 +117,24 @@ public class MainInterfacesFuncionales {
 	per1.setApellido("Hidalgo");
 	Ciudadano ciudadanoConver = function2.aplicar(per1);
 	LOG.info("Ciudadano convertido: "+ciudadanoConver);
-	
+///////////////////Java Library
+	LOG.info("4.1 Java Function");
+	Stream<String> listaCambiada =listaNum.stream().map(numero -> {
+		Integer valFinal =numero +1;
+		String cadena = "num: "+valFinal.toString();
+		return cadena;
+	});
+	listaCambiada.forEach(cadena->LOG.info(cadena));
 	
 	//5. UnaryOperator
 	LOG.info("5.UnaryOperator");
+	//Lambdas
 	IPersonaUnaryOperator<String> unary = cadena -> {
 		String cadeFinal = cadena.concat("-subfijo");
 		return cadeFinal;
 	};
-	LOG.info("UnaryOperator: "+unary.aplicar("Alexander"));
-	
-	
+	LOG.info("UnaryOperator: "+unary.aplicar("Alexander")
+	);
+	//NO hay UNA LIBRERIA DE ESTA INTERFAZ EN JAVA
 	}
 }
