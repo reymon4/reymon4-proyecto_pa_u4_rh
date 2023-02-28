@@ -9,7 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="estudiante")
+@Table(name="estudiante_p")
 public class Estudiante {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_estu")
@@ -25,6 +25,13 @@ public class Estudiante {
 	private Integer edad;
 
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Estudiante [id=" + id + ", nombreCompleto=" + nombreCompleto + ", edad=" + edad + "]";
+	}
+
 	//Getters and Setters
 	public Integer getId() {
 		return id;
